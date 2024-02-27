@@ -1,0 +1,42 @@
+1:
+CREATE DATABASE FoodOrderingSys;
+
+2:
+USE FoodOrderingSys;
+
+3:
+CREATE TABLE `Order` (
+    orderID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderDetail TEXT,
+    TotalPrice DECIMAL(10, 2),
+    Address VARCHAR(255),
+    ContactNo VARCHAR(20),
+    OrderedTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+4:
+CREATE TABLE OrderItem (
+    ItemID INT AUTO_INCREMENT PRIMARY KEY,
+    ItemName VARCHAR(255),
+    Price DECIMAL(10, 2)
+);
+
+5:
+CREATE TABLE PaymentRecord (
+    PayID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT,
+    PayMethod VARCHAR(50),
+    PayTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PayAmount DECIMAL(10, 2),
+    FOREIGN KEY (OrderID) REFERENCES `Order`(orderID)
+);
+
+6:
+CREATE TABLE RefundRecord (
+    RefundID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT,
+    RefundTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    RefundReason TEXT,
+    FOREIGN KEY (OrderID) REFERENCES `Order`(orderID)
+);
+
